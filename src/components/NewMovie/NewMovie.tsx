@@ -16,17 +16,19 @@ export const NewMovie: React.FC<Props> = ({ onAdd }) => {
   const [imdbUrl, setImdbUrl] = useState('');
   const [imdbId, setImdbId] = useState('');
 
-  const hasAllRequiredFields = !title || !imgUrl || !imdbUrl || !imdbId;
+  const hasMissingRequiredFields = [title, imgUrl, imdbUrl, imdbId]
+    .map(value => value.trim())
+    .some(value => value === '');
 
   const handleAdd = (event: React.FormEvent) => {
     event.preventDefault();
 
     onAdd({
-      title,
-      description,
-      imgUrl,
-      imdbUrl,
-      imdbId,
+      title: title.trim(),
+      description: description.trim(),
+      imgUrl: imgUrl.trim(),
+      imdbUrl: imdbUrl.trim(),
+      imdbId: imdbId.trim(),
     });
 
     setCount(prev => prev + 1);
@@ -86,7 +88,7 @@ export const NewMovie: React.FC<Props> = ({ onAdd }) => {
             type="submit"
             data-cy="submit-button"
             className="button is-link"
-            disabled={hasAllRequiredFields}
+            disabled={hasMissingRequiredFields}
           >
             Add
           </button>
