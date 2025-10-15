@@ -9,7 +9,7 @@ type Props = {
 export const NewMovie: React.FC<Props> = ({ onAdd }) => {
   // Increase the count after successful form submission
   // to reset touched status of all the `Field`s
-  const [count] = useState(0);
+  const [count, setCount] = useState(0);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [imgUrl, setImgUrl] = useState('');
@@ -28,6 +28,13 @@ export const NewMovie: React.FC<Props> = ({ onAdd }) => {
       imdbUrl,
       imdbId,
     });
+
+    setCount(prev => prev + 1);
+    setTitle('');
+    setDescription('');
+    setImdbUrl('');
+    setImgUrl('');
+    setImdbId('');
   };
 
   return (
